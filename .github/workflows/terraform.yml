@@ -32,7 +32,12 @@ jobs:
       # Step 3: Terraform Init
       - name: Terraform Init
         #working-directory: ./terraform
-        run: terraform init
+        run: |
+          terraform init -reconfigure -input=false \
+            -backend-config="tdsterraformstatefile " \
+            -backend-config="key=tdsterraformstatefile/statefile/terraform.tfstate" \
+            -backend-config="region=us-east-1" \
+            -backend-config="dynamodb_table=terraform-lock-table"
         
       #setp 4: terraform plan
       - name: Terraform plan
