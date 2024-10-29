@@ -1,0 +1,45 @@
+name: creating infra
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  provision-infrastructure:
+    name: Provision Infrastructure with Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      # Step 2: Configure AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Step 3: Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      # Step 3: Terraform Init
+      - name: Terraform Init
+        #working-directory: ./terraform
+        run: terraform init
+        
+      #setp 4: terraform plan
+      - name: Terraform plan
+        run: terraform plan
+
+      # Step 5: Terraform Apply
+      - name: Terraform Apply
+        #working-directory: ./terraform
+        id: terraform
+        run: terraform apply -auto-approve
