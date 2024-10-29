@@ -35,7 +35,7 @@ jobs:
         env:
           TF_INPUT: false  # Disable input prompts
         run: |
-          terraform init -reconfigure
+          terraform init -reconfigure -input=false
         
       #setp 4: terraform plan
       - name: Terraform plan
