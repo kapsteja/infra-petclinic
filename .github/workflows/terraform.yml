@@ -36,9 +36,9 @@ jobs:
         id: init
         run: |
          terraform init \
-         -backend-config="key=terraform.tfstate" \
-         -backend-config="bucket='tdsterraformstatefile' \
-         -backend-config="encrypt=true" \
+          -backend-config="key=terraform.tfstate" \
+          -backend-config="bucket='tdsterraformstatefile' \
+          -backend-config="encrypt=true" \
          
         
       #setp 4: terraform plan
