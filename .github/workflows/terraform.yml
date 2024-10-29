@@ -32,10 +32,14 @@ jobs:
       # Step 3: Terraform Init
       - name: Terraform Init
         #working-directory: ./terraform
-        env:
-          TF_INPUT: false  # Disable input prompts
+      - name: Terraform Init
+        id: init
         run: |
-          terraform init -reconfigure -input=false
+         terraform init \
+         -backend-config="key=terraform.tfstate" \
+         -backend-config="bucket='tdsterraformstatefile' \
+         -backend-config="encrypt=true" \
+         
         
       #setp 4: terraform plan
       - name: Terraform plan
