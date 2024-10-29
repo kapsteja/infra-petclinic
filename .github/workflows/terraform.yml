@@ -32,7 +32,10 @@ jobs:
       # Step 3: Terraform Init
       - name: Terraform Init
         #working-directory: ./terraform
-        run: terraform init 
+        env:
+          TF_INPUT: false  # Disable input prompts
+        run: |
+          terraform init -reconfigure
         
       #setp 4: terraform plan
       - name: Terraform plan
