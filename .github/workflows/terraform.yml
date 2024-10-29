@@ -32,7 +32,7 @@ jobs:
       # Step 3: Terraform Init
       - name: Terraform Init
         #working-directory: ./terraform
-        run: terraform init 
+        run: terraform init -migrate-state
         
       #setp 4: terraform plan
       - name: Terraform plan
